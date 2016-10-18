@@ -73,8 +73,7 @@ module.exports = {
             "</div>",
   props: {
     model: {
-      required: true,
-      twoWay: true
+      required: true
     },
     type: {
       type: String,
@@ -111,11 +110,11 @@ module.exports = {
       default: null
     }
   },
-  beforeCompile: function() {
+  created: function() {
     this.isChanging = false;
     this.control = null;
   },
-  ready: function() {
+  mounted: function() {
     // console.debug("datetime-picker.ready");
     var options = {
       useCurrent: false,
@@ -178,6 +177,7 @@ module.exports = {
       if (! me.isChanging) {
         me.isChanging = true;
         me.model = me.control.date();
+        me.$emit('change');
         me.$nextTick(function () {
           me.isChanging = false;
           if (me.onChange) {
